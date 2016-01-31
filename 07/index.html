@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>Shirley's MY AUGMENTED FACE</title>
+    <link href="../style.css" type="text/css" rel="stylesheet">
+    <script src="../script/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="../script/processing.min.js" type="text/javascript"></script>
+    <script src="../script/script.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // convenience function to get the id attribute of generated sketch html element
+        function getProcessingSketchId() {
+            return 'assignment07';
+        }
+    </script>
+
+</head>
+<body>
+<div id="content">
+    <div>
+        <div class="assignment" >
+            <iframe width="640" height="480"
+                    src="https://www.youtube.com/embed/FtTECt6TUWQ?loop=1&autoplay=1&showinfo=0&controls=0"
+                    frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="title" >
+        <h1 id="description">My Augmented Face</h1>
+        <p>Draw your own mask on the AR marker and see it on your face!</p>
+    </div>
+    <p>assignment06</p>
+    <p>Hover the title to check out the documentation.</p>
+    <p>
+        Built with Processing, OpenCV and NyAR4psg
+    </p>
+    </div>
+<canvas id="background" data-processing-sources="../script/background.pde"
+        width="1200" height="650">
+    <p>Your browser does not support the canvas tag.</p>
+</canvas>
+<div class="doc">
+    <p>
+        // live video libraries
+        import processing.video.*;
+
+        // AR library - find the 'NyAR4psg' folder that came with today's downloadable
+        // code package and put it into the 'libraries' folder of your Processing sketchbook
+        import jp.nyatla.nyar4psg.*;
+
+        // open CV library
+        import gab.opencv.*;
+        import java.awt.Rectangle;
+
+        // main open CV object (contains a ton of computer vision methods)
+        OpenCV opencv;
+
+        // array to hold all of the positions of the found faces
+        Rectangle[] faces = {
+        };
+
+        // camera capture object
+        Capture video;
+
+        // video scaling factor
+        int scalingFactor = 2;
+
+        // AR marker object - this keeps track of all of the patterns you wish to look for
+        MultiMarker augmentedRealityMarkers;
+
+        PImage paint;
+        PImage theBackground;
+        PImage mask;
+        float x1, x2, y1, y2, w;
+
+        void setup()
+        {
+        size(640, 480, OPENGL);
+        smooth();
+
+        imageMode(CORNER);
+        rectMode(CENTER);
+        noFill();
+        strokeWeight(3);
+
+        // create our video object
+        video = new Capture(this, 640, 480);
+        video.start();
+
+        // create our open CV object and tell it to monitor the video stream
+        opencv = new OpenCV(this, video);
+
+        // tell open CV to begin looking for faces
+        opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
+
+        // create a new AR marker object
+        // note that "camera_para.dat" has to be in the data folder of your sketch
+        // this is used to correct for distortions in your webcam
+        augmentedRealityMarkers = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
+
+        // the first marker will be referred to as marker #0
+        augmentedRealityMarkers.addARMarker(loadImage("ar_marker_h.png"), 16, 25, 80);
+        // and the second marker will be referred to as marker #1
+        augmentedRealityMarkers.addARMarker(loadImage("ar_marker_s.png"), 16, 25, 80);
+        }
+
+        void draw()
+        {
+        // we only really want to do something if there is fresh data from the camera waiting for us
+        if (video.available())
+        {
+
+        // read in the video frame and display it
+        video.read();
+        video.loadPixels();
+
+        // tell OpenCV about this frame
+        opencv.loadImage(video);
+
+        // attempt to detect any new faces
+        faces = opencv.detect();
+
+        image(video, 0, 0);
+
+        try {
+        // ask the AR marker object to attempt to find our patterns in the incoming video stream
+        augmentedRealityMarkers.detect(video);
+
+        // do the TWO patterns exist in this video frame?
+        if (augmentedRealityMarkers.isExistMarker(0) && augmentedRealityMarkers.isExistMarker(1))
+        {
+        // ok, now we are in business!  Test to see how far apart they are
+        // first, get their position in 2D space
+        PVector[] marker1 = augmentedRealityMarkers.getMarkerVertex2D(0);
+        PVector[] marker2 = augmentedRealityMarkers.getMarkerVertex2D(1);
+
+        x1 = (marker1[0].x + marker1[1].x + marker1[2].x + marker1[3].x)/4;
+        y1 = (marker1[0].y + marker1[1].y + marker1[2].y + marker1[3].y)/4;
+        x2 = (marker2[0].x + marker2[1].x + marker2[2].x + marker2[3].x)/4;
+        y2 = (marker2[0].y + marker2[1].y + marker2[2].y + marker2[3].y)/4;
+        w = marker1[1].x-marker1[0].x ;
+
+        //creat images
+        paint = createImage(int(x1-x2-w), int(y1-y2-w), ARGB);
+        paint.copy(video, int(marker2[2].x), int(marker2[2].y), int(x1-x2-w), int(y1-y2-w), 0, 0, int(x1-x2-w), int(y1-y2-w));
+        theBackground = createImage(int(x1-x2-w), int(y1-y2-w), ARGB);
+        theBackground.copy(video, int(marker2[1].x+10), int(marker2[1].y-(y1-y2-w)-20), int(x1-x2-w), int(y1-y2-w), 0, 0, int(x1-x2-w), int(y1-y2-w));
+        mask = createImage(int(x1-x2-w), int(y1-y2-w), ARGB);
+
+        // expose the pixels
+        theBackground.loadPixels();
+        paint.loadPixels();
+        mask.loadPixels();
+
+        //delete background
+        for (int x = 0; x < paint.width; x++)
+        {
+        for (int y = 0; y < paint.height; y++)
+        {
+        // construct a 1D location out of our x & y positions
+        int location = x + y*paint.width;
+
+        // examine the pixel in the background image
+        float bR = red(theBackground.pixels[location]);
+        float bG = green(theBackground.pixels[location]);
+        float bB = blue(theBackground.pixels[location]);
+
+        // examine the pixel in the video stream
+        float vR = red(paint.pixels[location]);
+        float vG = green(paint.pixels[location]);
+        float vB = blue(paint.pixels[location]);
+
+        // how different are they?
+        float difference = dist(bR, bG, bB, vR, vG, vB);
+
+        // if the difference is significant then we should paint
+        // the video stream to our final image
+        if (difference > 100)
+        {
+        mask.pixels[location] = paint.pixels[location];
+        }
+
+        // otherwise we will use a black color
+        else
+        {
+        mask.pixels[location] = color(0, 0, 0, 0);
+        }
+        }
+        }
+
+        // update the pixels on the mask
+        mask.updatePixels();
+        //image(paint, int(marker2[2].x), int(marker2[2].y));
+        rect(int(marker2[2].x)+int(x1-x2-w)/2, int(marker2[2].y)+int(y1-y2-w)/2, int(x1-x2-w), int(y1-y2-w));
+        }
+
+        // does pattern #0 exist in this video frame?
+        if (augmentedRealityMarkers.isExistMarker(0)){
+        augmentedRealityMarkers.setARPerspective();
+        pushMatrix();
+        setMatrix(augmentedRealityMarkers.getMarkerMatrix(0));
+        scale(-1, -1);
+        stroke(#65E8F5);
+        rect(0, 0, 80, 80);
+        perspective();
+        popMatrix();
+        }
+
+        // does pattern #1 exist in this video frame?
+        if (augmentedRealityMarkers.isExistMarker(1)){
+        augmentedRealityMarkers.setARPerspective();
+        pushMatrix();
+        setMatrix(augmentedRealityMarkers.getMarkerMatrix(1));
+        scale(-1, -1);
+        stroke(#65E8F5);
+        rect(0, 0, 80, 80);
+        perspective();
+        popMatrix();
+        }
+
+        // draw mask on the top right corner
+        image(mask, 0, 0);
+
+        // now iterate over our faces array - it will contain the position
+        // of any faces detected by open CV as well as their width and height
+        for (int i = 0; i < faces.length; i++)
+        {
+        image(mask, faces[i].x, faces[i].y, faces[i].width+20, faces[i].height+20);
+        }
+        }
+
+        catch (Exception e) {
+        println("Something went wrong with AR Tracking, skipping this frame.");
+        }
+        }
+        }
+
+    </p>
+</div>
+<br>
+
+<div class="home-btn">
+    <a href="../index.html"><p>HOME</p></a>
+</div>
+</body>
+</html>

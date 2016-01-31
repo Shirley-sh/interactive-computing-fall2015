@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Interactive Computing Portfolio</title>
+		<link href="style.css" type="text/css" rel="stylesheet">
+		<script src="script/processing.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			// convenience function to get the id attribute of generated sketch html element
+			function getProcessingSketchId () { return 'test'; }
+		</script>
+	</head>
+	<body>
+		<header>
+			<h1>SHIRLEY'S INTERACTIVE COMPUTING PORTFOLIO</h1>
+		</header>
+		<div class="main">
+			<div>
+				<img src="img/SH.png" height="100">
+				<h2>-WELCOME-</h2>
+			</div>
+			<ul>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/01/">[01] A CHRISTMAS TREE</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/02/">[02] A GAME</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/03/">[03] UMARU-CHAN BREAKOUT</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/04/">[04] THE GAME THAT RUINS YOUR MOUSE</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/midterm/proposal.html"> [Midterm] Proposal</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/midterm/doc.html"> [Midterm] TINY GLASS TANK</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/06/">[06] HALFTONE/FACE DETECTION</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/final/proposal.html"> [Final] Proposal</a></li>
+				<li><a href="http://i6.cims.nyu.edu/~xlh203/interactive/07/">[07] MY AUGMENTED FACE</a></li>
+			</ul>
+		</div>
+		<canvas id="background" data-processing-sources="script/background.pde"
+				width="1200" height="650">
+			<p>Your browser does not support the canvas tag.</p>
+		</canvas>
+	</body>
+</html>

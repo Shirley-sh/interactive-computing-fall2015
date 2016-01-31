@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>Shirley's GAME THAT RUINS YOUR MOUSE</title>
+	<link href="../style.css" type="text/css" rel="stylesheet">
+	<script src="../script/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="mouse.js" type="text/javascript"></script>
+	<script src="../script/processing.min.js" type="text/javascript"></script>
+	<script src="../script/minim.js" type="text/javascript"></script>
+	<script src="../script/script.js" type="text/javascript"></script>
+	<script type="text/javascript">
+// convenience function to get the id attribute of generated sketch html element
+function getProcessingSketchId () { return 'assignment04'; }
+</script>
+	
+	</head>
+	<body>
+		<div id="content">
+			<div>
+				<canvas class="assignment" id="assignment04" data-processing-sources="assignment04.pde"
+				width="600" height="600">
+					<p>Your browser does not support the canvas tag.</p>
+				<!-- Note: you can put any alternative content here. -->
+				</canvas>
+				<noscript>
+					<p>JavaScript is required to view the contents of this page.</p>
+				</noscript>
+	    	</div>
+			<div class="title">
+				<h1 id="description">The game that ruins your mouse</h1>
+				<p>Don't make the cats angry and don't hit the pig.</p>
+			</div>
+			<p>assignment04</p>
+			<p id="sources">Source code: <a href="assignment04.pde">assignment04</a> </p>
+			<p>Hover the title to check out the documentation.</p>
+			<p>
+			Built with <a href="http://processing.org" title="Processing">Processing</a>
+			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
+			</p>
+		</div>
+        <canvas id="background" data-processing-sources="../script/background.pde"
+                width="1200" height="650">
+            <p>Your browser does not support the canvas tag.</p>
+        </canvas>
+		<div class="doc">
+		<p>Basically I created a class call Cat. Inside the cat it has a state machine that tells if the cat shows up or not. The cat also has a variable called countDown that goes down in every loop so that the cat can switch its status in a certain amount of time.
+			<br><br>
+		As now we know how to rotate a image, I also made the cats come out in different angles.</p>
+		</div>
+		<br>
+		<div class="home-btn">
+			<a href="../index.html"><p>HOME</p></a>
+		</div>
+	</body>
+</html>

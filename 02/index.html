@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>Shirley's GAME</title>
+    <link href="../style.css" type="text/css" rel="stylesheet">
+    <script src="../script/jquery-2.1.0.min.js" type="text/javascript"></script>
+    <script src="../script/processing.min.js" type="text/javascript"></script>
+    <script src="../script/script.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        // convenience function to get the id attribute of generated sketch html element
+        function getProcessingSketchId() {
+            return 'test';
+        }
+    </script>
+</head>
+<body>
+<div id="content">
+    <div>
+
+        <canvas id="assignment02" data-processing-sources="assignment02.pde"
+                width="500" height="500">
+            <p>Your browser does not support the canvas tag.</p>
+            <!-- Note: you can put any alternative content here. -->
+        </canvas>
+        <noscript>
+            <p>JavaScript is required to view the contents of this page.</p>
+        </noscript>
+    </div>
+
+    <div class="title">
+        <h1 id="description">It is so hard to name such a GAME</h1>
+        <p>Move your hero to catch the coins before time's up.<br>
+            Control: A, W, D, S, and arrow keys</p>
+    </div>
+
+    <p>Assignment 02</p>
+    <p id="sources">Source code: <a href="assignment02.pde">assignment02</a></p>
+    <p>Hover the title to check out the documentation.</p>
+    <p>
+        Built with <a href="http://processing.org" title="Processing">Processing</a>
+        and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
+    </p>
+
+</div>
+<div class="doc">
+    <p>Instead of a chase game, I made it some thing more like a escape game. However, you will need to catch the coins
+        to won points and time. (One of the coin is always flying away from you and it values more points!)<br><br>For the
+        characters in this game, I made a class for the hero and the enemies. And I have a variable to count for the
+        frames so that the characters can change for a certain frames.
+        I also have a variable to store the lives of the hero. Every time it hit by the ghost, it loses one life.
+    </p>
+</div>
+<canvas id="background" data-processing-sources="../script/background.pde"
+        width="1200" height="650">
+    <p>Your browser does not support the canvas tag.</p>
+</canvas>
+<br>
+
+<div class="home-btn">
+    <a href="../index.html"><p>HOME</p></a>
+</div>
+</body>
+</html>

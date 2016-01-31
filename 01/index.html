@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>Assignment01</title>
+	<link href="../style.css" type="text/css" rel="stylesheet">
+	<script src="../script/processing.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		// convenience function to get the id attribute of generated sketch html element
+		function getProcessingSketchId () { return 'test'; }
+	</script>
+	</head>
+	<body>
+		<div id="content">
+			<div>
+				<canvas class="assignment" id="assignment01" data-processing-sources="assignment01.pde"
+						width="200" height="600">
+					<p>Your browser does not support the canvas tag.</p>
+					<!-- Note: you can put any alternative content here. -->
+				</canvas>
+				<noscript>
+					<p>JavaScript is required to view the contents of this page.</p>
+				</noscript>
+	    	</div>
+			<div class="title">
+				<h1 id="description">A Christmas Tree</h1>
+				<p>Move your cursor around the tree.</p>
+			</div>
+			<p>Assignment 01</p>
+			<p id="sources">Source code: <a href="assignment01.pde">assignment01</a> </p>
+			<p>
+			Built with <a href="http://processing.org" title="Processing">Processing</a>
+			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
+			</p>
+		</div>
+        <canvas id="background" data-processing-sources="../script/background.pde"
+                width="1200" height="650">
+            <p>Your browser does not support the canvas tag.</p>
+        </canvas>
+		<br>
+		<div class="home-btn">
+			<a href="../index.html"><p>HOME</p></a>
+		</div>
+	</body>
+</html>

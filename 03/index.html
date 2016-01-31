@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>Shirley's UMARU-CHAN BREAKOUT</title>
+	<link href="../style.css" type="text/css" rel="stylesheet">
+	<script src="../script/jquery-2.1.0.min.js" type="text/javascript"></script>
+	<script src="mouse.js" type="text/javascript"></script>
+	<script src="../script/processing.min.js" type="text/javascript"></script>
+	<script src="../script/minim.js" type="text/javascript"></script>
+	<script src="../script/script.js" type="text/javascript"></script>
+	<script type="text/javascript">
+// convenience function to get the id attribute of generated sketch html element
+function getProcessingSketchId () { return 'assignment03'; }
+</script>
+	
+	</head>
+	<body>
+		<div id="content">
+			<div>
+				<canvas class="assignment" id="assignment03" data-processing-sources="assignment03.pde" 
+				width="400" height="600">
+					<p>Your browser does not support the canvas tag.</p>
+				<!-- Note: you can put any alternative content here. -->
+				</canvas>
+				<noscript>
+					<p>JavaScript is required to view the contents of this page.</p>
+				</noscript>
+	    	</div>
+			<div class="title">
+				<h1 id="description">Umaru-chan Breakout: Clean up the boxes!</h1>
+				<p>use the arrow keys to move</p>
+			</div>
+			<p>assignment03</p>
+			<p id="sources">Source code: <a href="assignment03.pde">assignment03</a> </p>
+			<p>Hover the title to check out the documentation.</p>
+			<p>
+			Built with <a href="http://processing.org" title="Processing">Processing</a>
+			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
+			</p>
+		</div>
+        <canvas id="background" data-processing-sources="../script/background.pde"
+                width="1200" height="650">
+            <p>Your browser does not support the canvas tag.</p>
+        </canvas>
+		<div class="doc">
+			<p>The idea of this game is taken from the anime "Himouto! Umaru-chan", which is a story about a high-school age girl Umaru who loves cola and hates pepper. Your mission is to help Umaru to clean up the boxes in her room using her pet hamster and avoid the peppers. If you got hit by the peppers you would lost you lives, and you can get bonus points by hit the cola.
+				<br><br>
+				For this game, I made classes for the girl and the hamster so that they can be moved by your operations. I also created an array of class for the boxes so that they are able to move down or append more boxes to the room.
+				<br><br>
+				One the challenges I met during the process is the logic to detect if the hamster hit the box and in which direction should the hamster go. And I realized that in the older version if the hamster hit two boxes simultaneously, it won't change the direction because its direction has been multiplied by -1 twice. I fixed it by   create a flag to check if the direction has been changed or not, and don't change the direction if it already happened.
+				<br><br>
+				The other challenges I met is about the mouse position. I found that after I export it to the web, if resize the canvas, the mouse position won't translate itself to a relative one. Thanks to our professor Craig, this got fixed by JavaScript, which is basically use jQuery to get the size of the resized canvas and compute a ratio and apply it to the real mouse position as scaledMouseX and scaledMouseY.
+			</p>
+		</div>
+		<br>
+		<div class="home-btn">
+			<a href="../index.html"><p>HOME</p></a>
+		</div>
+	</body>
+</html>
